@@ -1,0 +1,18 @@
+@let properties = data().properties;
+
+<dl>
+    <dt>Type</dt>
+    <dd>{{ properties?.type || '—' }}</dd>
+    <dt>State</dt>
+    <dd>{{ properties?.state || '—' }}</dd>
+    <dt>Seat</dt>
+    <dd>{{ properties?.capital || '—' }}</dd>
+    <dt>Population</dt>
+    <dd>{{ formatPopulation(properties?.population) }}</dd>
+    <dt>Area</dt>
+    <dd>{{ properties?.area || '—' }}</dd>
+    <dt>Density</dt>
+    <dd>{{ properties?.density || '—' }}</dd>
+    <dt>Plate</dt>
+    <dd>{{ properties?.kfz || '—' }}</dd>
+</dl>

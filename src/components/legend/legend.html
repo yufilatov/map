@@ -1,0 +1,9 @@
+<div class="legend">
+    <span class="legend-caption">Population</span>
+    <div class="legend-bar" aria-hidden="true"></div>
+    <ul class="legend-ticks">
+        @for (item of legend(); track item.label) {
+        <li>{{ item?.label }}</li>
+        }
+    </ul>
+</div>

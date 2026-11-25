@@ -1,0 +1,92 @@
+@let mapData = results.value();
+
+<div class="masthead">
+    <div class="masthead-copy">
+        <span class="kicker">Atlas</span>
+        <h5>Germany population</h5>
+    </div>
+
+    <div class="levels">
+        <button
+            type="button"
+            [class.active]="level() === 'state'"
+            (click)="setLevel('state')"
+        >Länder</button>
+        <button
+            type="button"
+            [class.active]="level() === 'district'"
+            (click)="setLevel('district')"
+        >Landkreise</button>
+    </div>
+
+    <app-legend [legend]="legend"></app-legend>
+</div>
+
+<div class="stage">
+    <aside class="info">
+        <div class="crest">
+            @if (show) {
+                <div [ngClass]="getLogoBig(logoName(data))"></div>
+            } @else {
+                <div class="logo-big logo-deutschland"></div>
+            }
+        </div>
+
+        <h2 class="info-title">{{ panelTitle }}</h2>
+        <p class="info-subtitle">{{ panelSubtitle }}</p>
+
+        @if (show && level() === 'district') {
+            <app-card [data]="data"></app-card>
+        } @else if (show) {
+            <dl>
+                <dt>Capital</dt>
+                <dd>{{ data?.properties?.capital || '—' }}</dd>
+                <dt>Head</dt>
+                <dd>{{ data?.properties?.head || '—' }}</dd>
+                <dt>Area</dt>
+                <dd>{{ data?.properties?.area || '—' }}</dd>
+                <dt>Population</dt>
+                <!-- <dd>{{ formatPopulation(data?.properties?.population) }}</dd> -->
+                <dt>Density</dt>
+                <dd>{{ data?.properties?.density || '—' }}</dd>
+                <dt>Time zone</dt>
+                <dd>{{ data?.properties?.timeZone || '—' }}</dd>
+                <dt>Bundesrat</dt>
+                <dd>{{ data?.properties?.bundesratVotes ?? '—' }}</dd>
+            </dl>
+        } @else {
+            <dl>
+                <dt>Government</dt>
+                <dd>Federal parliamentary republic</dd>
+                <dt>President</dt>
+                <dd>Frank-Walter Steinmeier</dd>
+                <dt>Chancellor</dt>
+                <dd>Angela Merkel</dd>
+                <dt>Capital</dt>
+                <dd>Berlin</dd>
+                <dt>Language</dt>
+                <dd>German</dd>
+                <dt>Currency</dt>
+                <dd>Euro (€)</dd>
+                <dt>Population</dt>
+                <dd>83,577,140</dd>
+                <dt>Density</dt>
+                <dd>234/km²</dd>
+                <dt>Land area</dt>
+                <dd>357,592 km²</dd>
+            </dl>
+        }
+    </aside>
+
+    <div class="map-frame">
+        <app-chart>
+            <app-chart-series
+                type="map"
+                [data]="mapData"
+                [style]="style"
+                (onHover)="showData($event)"
+                (onLeave)="show = false">
+            </app-chart-series>
+        </app-chart>
+    </div>
+</div>
